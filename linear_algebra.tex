@@ -1,6 +1,7 @@
 \documentclass[a4paper,10pt]{article}
 
 \usepackage{amsmath}
+\usepackage{color}
 
 \newcommand{\mA}{$\mathbf{A}$ }
 \newcommand{\mAT}{$\mathbf{A^T}$ }
@@ -8,10 +9,12 @@
 \newcommand{\vx}{$\mathbf{x}$ }
 \newcommand{\vy}{$\mathbf{y}$ }
 
+\newenvironment{meta}[0]{\color{red} \em}{}
+
 %opening
-\title{Linear Algebra}
+\title{Revision Notes on Linear Algebra for Undergraduate Engineers}
 \author{Pete Bunch}
-\date{Lent 2012}
+\date{Lent Term 2012}
 
 \begin{document}
 
@@ -19,16 +22,17 @@
 
 \section{Introduction}
 
-A matrix is more than just a grid full of numbers. You'll be familiar with the concept that simultaneous equations can be stacked up into a matrix and solved by matrix inversion. e.g.
+A matrix is more than just a grid full of numbers. Whatever sort of engineering you specialise in, a basic grounding in linear algebra is likely to be useful. Lets look at some examples of how matrix equations arise.
 
+{\meta Add examples from structures (truss), electrical (resistor grid), mechanics (kinematics), fluids (some sort of pressure, height, velocity-square problem)}
+
+All of these problems lead us to the same equation,
+%
 \begin{equation}
  \mathbf{A x} = \mathbf{b}
 \end{equation}
-\begin{equation}
- \mathbf{x} = \mathbf{A}^{-1} \mathbf{x}  .
-\end{equation}
 
-We can think of \vx and \vb as position vectors in a ``solution space'' and ``constraint space'' respectively. The coordinates in these spaces are just the values of the individual components of \vx and \vb. We can now think of \mA as a linear transformation from one space to another.
+We can think of \vx as a position vectors in an ``input space'' or ``solution space'' and \vb as the corresponding position vector in the ``output space'' or ``constraint space'' respectively. The coordinates in these spaces are just the values of the individual components of \vx and \vb. \mA is just the linear transformation that takes us from one space to the other.
 
 
 
@@ -40,33 +44,38 @@ Consider an $m \times n$ matrix \mA, which maps a point \vx in the ``input space
  \mathbf{y} = \mathbf{A x}
 \end{equation}
 
-What can we say about the input and output spaces? Firstly, \vx must be $n \times 1$ so the input space is $n$-dimensional. \vy must be $m \times 1$ so the output space is $m$-dimensional.
+What can we say about the input and output spaces? Firstly, \vx must be $n \times 1$ so the input space is $n$-dimensional ($n$D). \vy must be $m \times 1$ so the output space is $m$-dimensional ($m$D).
 
 \subsection{Output Side}
 
 Let's consider the output space. We can write \mA as a set of column vectors.
-
+%
 \begin{equation}
  \mathbf{A} = \begin{bmatrix}\mathbf{c}_1 & \mathbf{c}_2 & \dots & \mathbf{c}_n \end{bmatrix}
 \end{equation}
 
-If we expand the input vector \vx as a set of $1$-component vectors,
-
-\begin{equation}
- \mathbf{x} = \begin{bmatrix} x_1 \\ 0 \\ \vdots \\ 0 \end{bmatrix} + \begin{bmatrix} 0 \\ x_2 \\ \vdots \\ 0 \end{bmatrix} + \dots + \begin{bmatrix} 0 \\ 0 \\ \vdots \\ x_n \end{bmatrix}   ,
-\end{equation}
-
-then when we multiply \mA by \vx, we can write it as,
-
+Now when we multiply \mA by \vx, we can write it as,
+%
 \begin{equation}
  \mathbf{y} = \mathbf{A x} = x_1 \mathbf{c}_1 + x_2 \mathbf{c}_2 + \dots + x_n \mathbf{c}_n   .
 \end{equation}
 
-So the output, \vy, is going to be written as a weighted some of the columns of \mA. This set of column vectors defines a new space, the ``column space''. Remember that the output space is always $n$-dimensional. The dimensionality of the column space is given by the number of independent vectors used to construct it.  If any of the columns are proportional to each other, then the column space will not ``fill'' the entire output. Also, if $m$ is larger than $n$, then even if all the columns are independent, the column space still won't fill the whole output space. The dimensionality of the column space is called the \emph{rank} of the matrix, and we'll denote it as $r$. %So if, for example, all the columns of \mA were parallel to each other ($c_1 \propto c_2 \propto \dots \propto c_n$), then there is only really one independent vector defining the column space, so it has dimensionality $1$.
+So the output, \vy, is just a weighted some of the columns of \mA. This set of column vectors defines a new vector subspace, the ``column space'', which contains all the valid \vy's for the equation $\mathbf{y} = \mathbf{A x}$.
 
-If the column space doesn't fill the whole output space, what happens in the rest of it? It's called the ``left-nullspace'', and it represents the values of \vy which we can't get, whatever we choose for \vx. Logically, its dimensionality must be $n - r$, because that's what's left over by the column space.
+The output space is always $m$D, but the column space won't always ``fill'' the whole of it. If there are only $r$ independent columns of \mA, then the column space is an $r$D subspace. For example, if the matrix has $3$ rows, but the three column vectors are co-planar, then the column space is a plane in a 3D space. $r$ is called the \emph{rank} of the matrix.
 
-Any vector in the left-nullspace is orthogonal to any vector in the column space, otherwise we could write it in terms of the columns. Any output vector can be written as a sum of a column space vector and a left-nullspace vector.
+Note that $r$ cannot be larger than $n$ (i.e. if all the columns are independent), so if $n$ is smaller than $m$, then the column space will definitely not fill the entire output space. In the parlance of simultaneous equations, this is because you have more equations than variables.
+ 
+If the column space doesn't fill the whole output space, what happens in the rest of it? We can split our output point up into a component in the column space and a perpendicular component that isn't,
+%
+\begin{equation}
+\mathbf{y} = \mathbf{y}_C + \mathbf{y}_{LN}
+\end{equation}
+
+The perpendicular component lies in the orthogonal subspace to the column space. This is called the ``left-nullspace''. (Its got to be orthogonal or we could write it (or part of it) in terms of column space vectors, which would mean that it (or part of it) was actually in the column space.) If we're in an $m$D output space, and the column space is $r$D, then there are $m-r$ direction perpendicular to the column space, so the left-nullspace is $(m-r)$D.
+
+So, for our equation $\mathbf{y} = \mathbf{A x}$ to have a solution, we must have $\mathbf{y}_{LN} = 0$. What does this mean? Well, for our structures example, a component in the left-nullspace represents a violation of the geometry constraints, i.e. one of the bars must have changed length. In the electric example, it means that Kirchoff's laws have been broken, and in the mechanics example it means Newton's laws have been broken. Left-nullspace outputs are impossible.
+
 
 \subsection{Input Side}
 
@@ -82,17 +91,29 @@ Now we can write the multiplication like this,
  \mathbf{y} = \mathbf{A x} = \begin{bmatrix} \mathbf{r}_1 \cdot \mathbf{x} \\ \mathbf{r}_2 \cdot \mathbf{x} \\ \vdots \\ \mathbf{r}_m \cdot \mathbf{x} \end{bmatrix}    .
 \end{equation}
 
-We can think of the row vectors defining another interesting subspace, the ``row space''. Those dot-products tell us how much of the input vector there is in each of the row directions. As with the column space, the dimensionality of the row space is equal to the number of independent rows there are in the matrix. Curiously, this is always the same as the dimensionality of the column space, i.e. the rank of the matrix.
+Taking the dot product of the input point with each of the row vectors gives us the ``contribution'' of that point in each of the row directions. This defines another interesting subspace, the ``row space'', which contains all the useful inputs which have an effect on our system. As before, we can write each input point in terms of a component in the row space and a perpendicular component,
+%
+\begin{equation}
+\mathbf{x} = \mathbf{x}_R + \mathbf{x}_{N}
+\end{equation}
 
-As before, the row space doesn't necessarily fill the input space. We call what's left over the ``nullspace'' of the matrix. Vectors in the nullspace are those which have no component in any of the row vector directions. This means they satisfy $\mathbf{A x} = \mathbf{0}$.
+Now, there's nothing wrong with having an $\mathbf{x}_{N}$ component. We're talking about the input to the system here, and we can choose that to be whatever we damn-well please. However, if $\mathbf{x}_{N}$ is perpendicular to the row space component, then it must also be perpendicular to all the individual rows of \mA. Perpendicular means that the dot product is zero, which leads us to the fact that,
+%
+\begin{equation}
+\mathbf{A x}_N = \mathbf{0}     .
+\end{equation}
 
-Any vector in the nullspace is orthogonal to any vector in the row space, because $\mathbf{r}_i \cdot \mathbf{x}$ for all $i$. Any input vector can be written as a sum of a row space vector and a nullspace vector.
+We call this orthogonal subspace the ``nullspace''. As we can see, an input (or a part of it) in the nullspace has no effect on the output.
 
-%What happens if our input vector, \vx, is perpendicular to all the rows of the matrix? This means that $\mathbf{r}_i \cdot \mathbf{x} = 0$ for all $i$, so the output is just $\mathbf{y} = \mathbf{0}$. This can happen if some of the rows are not independent, or if $m$ is larger than $n$. The space in which this happens in called the ``nullspace'' of the matrix. It has $m-r$ dimensions, filling up the space on the input side which was not occupied by the row space.
+The input space is always $n$D, but the row space won't always fill the whole of it. The number of row space dimensions is given by the number of independent row vectors. Curiously, this is always $r$ (i.e. the rank, the same as the column space). We'll see why when we do LU decompositions. The nullspace then has $(n-r)$ dimensions.
 
-\subsection{Some Relationships}
 
-If we transpose the matrix, then everything flips around. The row space of \mA is the column space of \mAT, and vice-versa. The nullspace of \mA is the left-nullspace of \mAT and vice-versa. This should be pretty obvious, because the transpose operation turns the rows into columns. We can also use this relationship to show that the dimensionality of the row and column spaces are equal to each other.
+
+\subsection{Transposing}
+
+If we transpose the matrix, then everything flips around. The row space of \mA is the column space of \mAT, and vice-versa. The nullspace of \mA is the left-nullspace of \mAT and vice-versa. This should be pretty obvious, because the transpose operation turns the rows into columns and the columns into rows. It also gives us a nice way to define the left-nullspace, as the nullspace of \mAT. This means that $\mathbf{A}^T \mathbf{y}_{LN} = \mathbf{0}$.
+
+
 
 \subsection{Summary}
 
@@ -106,5 +127,65 @@ If we transpose the matrix, then everything flips around. The row space of \mA i
 \item \vy is in the output space, which is divided into the \emph{column space} and the \emph{left-nullspace}. If \vy is in the column space then there is a solution for \vx (in the row space). If \vy is in the left-nullspace, there is no solution for \vx.
 
 \end{itemize}
+
+
+\section{Solving Matrix Equations}
+
+We're now going to consider solving equations of the form,
+%
+\begin{equation}
+ \mathbf{y} = \mathbf{A x}
+\end{equation}
+
+where \mA and \vy are known and fixed and we want to find \vx. Back in the simple land of scalars, there was always 1 solution to this equation (unless \mA was $0$). Here in multi-dimensional space there could be one, zero, or an infinite number of solution. We've already considered when no solution exists --- its when $\mathbf{y}_{LN} \ne 0$.
+
+It turns out that there will be one solution if $r = n$, and many (infinite) if $r < n$. To see why, lets think about the nullspace. If $r<n$, then the matrix has a nullspace (because it has $n-r > 0$ dimensions), and it's defined by $\mathbf{A x}_N = \mathbf{0}$. If $\mathbf{x}_0$ is a solution to the equation, i.e. $\mathbf{y} = \mathbf{A x}_0$, then we could just add some of $\mathbf{x}_N$ onto the original solution and we'd still have a valid solution.
+%
+\begin{eqnarray}
+\mathbf{A} (\mathbf{x}_0 + \lambda \mathbf{x}_N) & = & \mathbf{A} \mathbf{x}_0 + \lambda \mathbf{A}  \mathbf{x}_N \\
+ & = & \mathbf{y} + \mathbf{0}
+\end{eqnarray}
+
+So there will be an infinite number of solutions when the nullspace exists. Otherwise, there's just one.
+
+We'll get onto how we actually find $\mathbf{x}_0$ and $\mathbf{x}_N$ when we look at decompositions.
+
+
+
+\subsection{Least Squares Solutions}
+
+We said that we can't solve a matrix equation when $\mathbf{y}_{LN} \ne 0$. However, all is not lost. We can still find a best-fit/minimum-error solution. Remember that the left-nullspace is characterised by $\mathbf{A}^T \mathbf{y}_{LN} = \mathbf{0}$. So if we pre-multiply the output (i.e. the constraints) of the equation by \mAT, then we can make that awkward left-nullspace bit disappear.
+%
+\begin{eqnarray}
+\mathbf{A}^T (\mathbf{y}_C + \mathbf{y}_{LN}) & = & \mathbf{A}^T \mathbf{y}_C + \mathbf{A}^T \mathbf{y}_{LN} \\
+ & = & \mathbf{A}^T \mathbf{y}_C + \mathbf{0}
+\end{eqnarray}
+
+So if we take the original solution-less equation and pre-multiply by \mAT, we get a new equation which does have a solution.
+%
+\begin{equation}
+ \mathbf{A}^T \mathbf{y} = \mathbf{A}^T \mathbf{A x}
+\end{equation}
+
+This solution results in an output of $\mathbf{y}_C$, which is as close as we can get to \vy.
+
+
+
+\section{LU Decompositions}
+
+Structure. Geometric interpretation. Rank equality proof.
+
+\section{QR Decompositions}
+
+Structure. Geometric interpretation. Least squares problems.
+
+\section{Eigenvalues and Singular Values}
+
+Definitions. Row/column space interpretation.
+
+\section{Eigenvalue and Singular Value Decompositions}
+
+Structure. Derivations. Interpretations (rotation, scale, rotation). 
+
 
 \end{document}

@@ -1,0 +1,113 @@
+\documentclass[a4paper,10pt]{article}
+
+\usepackage{amsmath}
+
+\newcommand{\mA}{$\mathbf{A}$ }
+\newcommand{\mAT}{$\mathbf{A^T}$ }
+\newcommand{\vb}{$\mathbf{b}$ }
+\newcommand{\vx}{$\mathbf{x}$ }
+\newcommand{\vy}{$\mathbf{y}$ }
+
+\newenvironment{meta}[0]{\color{red} \em}{}
+
+%opening
+\title{Revision Notes on Linear Algebra for Undergraduate Engineers}
+\author{Pete Bunch}
+\date{Lent Term 2012}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+
+A matrix is more than just a grid full of numbers. Whatever sort of engineering you specialise in, a basic grounding in linear algebra is likely to be useful. Lets look at some examples of how matrix equations arise.
+
+{\meta Add examples from structures (truss), electrical (resistor grid), mechanics (kinematics), fluids (some sort of pressure, height, velocity-square problem)
+
+All of these problems lead us to the same equation,
+%
+\begin{equation}
+ \mathbf{A x} = \mathbf{b}
+\end{equation}
+
+We can think of \vx as a position vectors in an ``input space'' or ``solution space'' and \vb as the corresponding position vector in the ``output space'' or ``constraint space'' respectively. The coordinates in these spaces are just the values of the individual components of \vx and \vb. \mA is just the linear transformation that takes us from one space to the other.
+
+
+
+\section{Fundamental Matrix Sub-Spaces}
+
+Consider an $m \times n$ matrix \mA, which maps a point \vx in the ``input space'' to \vy in the ``output space''. i.e.
+
+\begin{equation}
+ \mathbf{y} = \mathbf{A x}
+\end{equation}
+
+What can we say about the input and output spaces? Firstly, \vx must be $n \times 1$ so the input space is $n$-dimensional. \vy must be $m \times 1$ so the output space is $m$-dimensional.
+
+\subsection{Output Side}
+
+Let's consider the output space. We can write \mA as a set of column vectors.
+
+\begin{equation}
+ \mathbf{A} = \begin{bmatrix}\mathbf{c}_1 & \mathbf{c}_2 & \dots & \mathbf{c}_n \end{bmatrix}
+\end{equation}
+
+If we expand the input vector \vx as a set of $1$-component vectors,
+
+\begin{equation}
+ \mathbf{x} = \begin{bmatrix} x_1 \\ 0 \\ \vdots \\ 0 \end{bmatrix} + \begin{bmatrix} 0 \\ x_2 \\ \vdots \\ 0 \end{bmatrix} + \dots + \begin{bmatrix} 0 \\ 0 \\ \vdots \\ x_n \end{bmatrix}   ,
+\end{equation}
+
+then when we multiply \mA by \vx, we can write it as,
+
+\begin{equation}
+ \mathbf{y} = \mathbf{A x} = x_1 \mathbf{c}_1 + x_2 \mathbf{c}_2 + \dots + x_n \mathbf{c}_n   .
+\end{equation}
+
+So the output, \vy, is going to be written as a weighted some of the columns of \mA. This set of column vectors defines a new space, the ``column space''. Remember that the output space is always $n$-dimensional. The dimensionality of the column space is given by the number of independent vectors used to construct it.  If any of the columns are proportional to each other, then the column space will not ``fill'' the entire output. Also, if $m$ is larger than $n$, then even if all the columns are independent, the column space still won't fill the whole output space. The dimensionality of the column space is called the \emph{rank} of the matrix, and we'll denote it as $r$. %So if, for example, all the columns of \mA were parallel to each other ($c_1 \propto c_2 \propto \dots \propto c_n$), then there is only really one independent vector defining the column space, so it has dimensionality $1$.
+
+If the column space doesn't fill the whole output space, what happens in the rest of it? It's called the ``left-nullspace'', and it represents the values of \vy which we can't get, whatever we choose for \vx. Logically, its dimensionality must be $n - r$, because that's what's left over by the column space.
+
+Any vector in the left-nullspace is orthogonal to any vector in the column space, otherwise we could write it in terms of the columns. Any output vector can be written as a sum of a column space vector and a left-nullspace vector.
+
+\subsection{Input Side}
+
+For the input space, we're going to expand \mA in a different way, in terms of its rows.
+
+\begin{equation}
+ \mathbf{A} = \begin{bmatrix}\mathbf{r}_1^T \\ \mathbf{r}_2^T \\ \vdots \\ \mathbf{r}_m^T \end{bmatrix}
+\end{equation}
+
+Now we can write the multiplication like this,
+
+\begin{equation}
+ \mathbf{y} = \mathbf{A x} = \begin{bmatrix} \mathbf{r}_1 \cdot \mathbf{x} \\ \mathbf{r}_2 \cdot \mathbf{x} \\ \vdots \\ \mathbf{r}_m \cdot \mathbf{x} \end{bmatrix}    .
+\end{equation}
+
+We can think of the row vectors defining another interesting subspace, the ``row space''. Those dot-products tell us how much of the input vector there is in each of the row directions. As with the column space, the dimensionality of the row space is equal to the number of independent rows there are in the matrix. Curiously, this is always the same as the dimensionality of the column space, i.e. the rank of the matrix.
+
+As before, the row space doesn't necessarily fill the input space. We call what's left over the ``nullspace'' of the matrix. Vectors in the nullspace are those which have no component in any of the row vector directions. This means they satisfy $\mathbf{A x} = \mathbf{0}$.
+
+Any vector in the nullspace is orthogonal to any vector in the row space, because $\mathbf{r}_i \cdot \mathbf{x}$ for all $i$. Any input vector can be written as a sum of a row space vector and a nullspace vector.
+
+%What happens if our input vector, \vx, is perpendicular to all the rows of the matrix? This means that $\mathbf{r}_i \cdot \mathbf{x} = 0$ for all $i$, so the output is just $\mathbf{y} = \mathbf{0}$. This can happen if some of the rows are not independent, or if $m$ is larger than $n$. The space in which this happens in called the ``nullspace'' of the matrix. It has $m-r$ dimensions, filling up the space on the input side which was not occupied by the row space.
+
+\subsection{Some Relationships}
+
+If we transpose the matrix, then everything flips around. The row space of \mA is the column space of \mAT, and vice-versa. The nullspace of \mA is the left-nullspace of \mAT and vice-versa. This should be pretty obvious, because the transpose operation turns the rows into columns. We can also use this relationship to show that the dimensionality of the row and column spaces are equal to each other.
+
+\subsection{Summary}
+
+\begin{equation}
+ \mathbf{y} = \mathbf{A x}
+\end{equation}
+
+\begin{itemize}
+\item \vx is in the input space, which is divided into the \emph{row space} and the \emph{nullspace}. The nullspace maps onto $\mathbf{0}$ in the output space. The row space maps onto the column space.
+
+\item \vy is in the output space, which is divided into the \emph{column space} and the \emph{left-nullspace}. If \vy is in the column space then there is a solution for \vx (in the row space). If \vy is in the left-nullspace, there is no solution for \vx.
+
+\end{itemize}
+
+\end{document}
