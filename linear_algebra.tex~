@@ -409,17 +409,23 @@ We can do the same grouping thing with singular values.
 %
 \begin{eqnarray}
  \mathbf{A V} &=& \mathbf{U \Sigma} \\
- \mathbf{A}^T \mathbf{U} &=& \mathbf{V \Sigma}^T      .
+ \mathbf{A}^T \mathbf{U} &=& \mathbf{V \Sigma}      .
 \end{eqnarray}
 
-$\mathbf{U}$ and $\mathbf{V}$ are square and orthogonal (see previous section), and $\mathbf{\Sigma}$ is $m \times n$. Now rearranging,
+$\mathbf{U}$ and $\mathbf{V}$ are square, and $\mathbf{\Sigma}$ is $m \times n$. Now rearranging,
 %
 \begin{eqnarray}
- \mathbf{A} &=& \mathbf{U \Sigma V}^{T}      .
+ \mathbf{A} &=& \mathbf{U \Sigma V}^{-1} \\
+ \mathbf{A} &=& \mathbf{V \Sigma U}^{-1}     .
 \end{eqnarray}
 
-We can interpret both the eigenvalue and singular value decompositions geometrically. The input vector is first rotated in the input space, then scaled along the axes. If $\mathbf{\Sigma}$ is not square, then it dimensions are also added or removed. The resulting vector is then rotated in the output space to give the output point.
+Comparing these equations we conclude that $U$ and $V$ must be orthogonal so,
 
+\begin{equation}
+ \mathbf{A} = \mathbf{U \Sigma V}^{T}
+\end{equation}
+
+We can interpret both the eigenvalue and singular value decompositions geometrically.
 
 
 \end{document}
