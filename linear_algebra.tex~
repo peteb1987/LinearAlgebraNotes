@@ -5,11 +5,11 @@
 \usepackage{algorithm}
 \usepackage{algorithmic}
 
-\newcommand{\mA}{$\mathbf{A}$ }
-\newcommand{\mAT}{$\mathbf{A^T}$ }
-\newcommand{\vb}{$\mathbf{b}$ }
-\newcommand{\vx}{$\mathbf{x}$ }
-\newcommand{\vy}{$\mathbf{y}$ }
+\newcommand{\mA}{$\mathbf{A}$}
+\newcommand{\mAT}{$\mathbf{A^T}$}
+\newcommand{\vb}{$\mathbf{b}$}
+\newcommand{\vx}{$\mathbf{x}$}
+\newcommand{\vy}{$\mathbf{y}$}
 
 \newenvironment{meta}[0]{\color{red} \em}{}
 
@@ -34,37 +34,37 @@ All of these problems lead us to the same equation,
  \mathbf{A x} = \mathbf{b}
 \end{equation}
 
-We can think of \vx as a position vectors in an ``input space'' or ``solution space'' and \vb as the corresponding position vector in the ``output space'' or ``constraint space'' respectively. The coordinates in these spaces are just the values of the individual components of \vx and \vb. \mA is the linear transformation that takes us from one space to the other.
+We can think of x as a position vectors in an ``input space'' or ``solution space'' and b as the corresponding position vector in the ``output space'' or ``constraint space'' respectively. The coordinates in these spaces are just the values of the individual components of x and b. A is the linear transformation that takes us from one space to the other.
 
 
 
 \section{Fundamental Matrix Sub-Spaces}
 
-Consider an $m \times n$ matrix \mA, which maps a point \vx in the ``input space'' to \vy in the ``output space''. i.e.
+Consider an $m \times n$ matrix A, which maps a point x in the ``input space'' to y in the ``output space''. i.e.
 
 \begin{equation}
  \mathbf{y} = \mathbf{A x}
 \end{equation}
 
-What can we say about the input and output spaces? Firstly, \vx must be $n \times 1$ so the input space is $n$-dimensional ($n$D). \vy must be $m \times 1$ so the output space is $m$-dimensional ($m$D).
+What can we say about the input and output spaces? Firstly, x must be $n \times 1$ so the input space is $n$-dimensional ($n$D). y must be $m \times 1$ so the output space is $m$-dimensional ($m$D).
 
 \subsection{Output Side}
 
-Let's consider the output space. We can write \mA as a set of column vectors.
+Let's consider the output space. We can write A as a set of column vectors.
 %
 \begin{equation}
  \mathbf{A} = \begin{bmatrix}\mathbf{c}_1 & \mathbf{c}_2 & \dots & \mathbf{c}_n \end{bmatrix}
 \end{equation}
 
-Now when we multiply \mA by \vx, we can write it as,
+Now when we multiply A by x, we can write it as,
 %
 \begin{equation}
  \mathbf{y} = \mathbf{A x} = x_1 \mathbf{c}_1 + x_2 \mathbf{c}_2 + \dots + x_n \mathbf{c}_n   .
 \end{equation}
 
-So the output, \vy, is just a weighted sum of the columns of \mA. This set of column vectors defines a new vector subspace, the ``column space'', which contains all the valid \vy's for the equation $\mathbf{y} = \mathbf{A x}$.
+So the output, y, is just a weighted sum of the columns of A. This set of column vectors defines a new vector subspace, the ``column space'', which contains all the valid y's for the equation $\mathbf{y} = \mathbf{A x}$.
 
-The output space is always $m$D, but the column space won't always ``fill'' the whole of it. If there are only $r$ independent columns of \mA, then the column space is an $r$D subspace. For example, if the matrix has $3$ rows, but the three column vectors are co-planar, then the column space is a plane in a 3D space. $r$ is called the \emph{rank} of the matrix.
+The output space is always $m$D, but the column space won't always ``fill'' the whole of it. If there are only $r$ independent columns of A, then the column space is an $r$D subspace. For example, if the matrix has $3$ rows, but the three column vectors are co-planar, then the column space is a plane in a 3D space. $r$ is called the \emph{rank} of the matrix.
 
 Note that $r$ cannot be larger than $n$ (i.e. if all the columns are independent), so if $n$ is smaller than $m$, then the column space will definitely not fill the entire output space. In the parlance of simultaneous equations, this is because you have more equations than variables.
  
@@ -74,14 +74,14 @@ If the column space doesn't fill the whole output space, what happens in the res
 \mathbf{y} = \mathbf{y}_C + \mathbf{y}_{LN}
 \end{equation}
 
-The perpendicular component lies in the orthogonal subspace to the column space. This is called the ``left-nullspace''. (Its got to be orthogonal or we could write it (or part of it) in terms of column space vectors, which would mean that it (or part of it) was actually in the column space.) If we're in an $m$D output space, and the column space is $r$D, then there are $m-r$ direction perpendicular to the column space, so the left-nullspace is $(m-r)$D.
+The perpendicular component lies in the orthogonal subspace to the column space. This is called the ``left-nullspace''. (Its got to be orthogonal or we could write it (or part of it) in terms of column space vectors, which would mean that it (or part of it) was actually in the column space.) If we're in an $m$D output space, and the column space is $r$D, then there are $m-r$ directions perpendicular to the column space, so the left-nullspace is $(m-r)$D.
 
 So, for our equation $\mathbf{y} = \mathbf{A x}$ to have a solution, we must have $\mathbf{y}_{LN} = 0$. What does this mean? Well, for our structures example, a component in the left-nullspace represents a violation of the geometry constraints, i.e. one of the bars must have changed length. In the electric example, it means that Kirchoff's laws have been broken, and in the mechanics example it means Newton's laws have been broken. Left-nullspace outputs are impossible.
 
 
 \subsection{Input Side}
 
-For the input space, we're going to expand \mA in a different way, in terms of its rows.
+For the input space, we're going to expand A in a different way, in terms of its rows.
 
 \begin{equation}
  \mathbf{A} = \begin{bmatrix}\mathbf{r}_1^T \\ \mathbf{r}_2^T \\ \vdots \\ \mathbf{r}_m^T \end{bmatrix}
@@ -99,7 +99,7 @@ Taking the dot product of the input point with each of the row vectors gives us 
 \mathbf{x} = \mathbf{x}_R + \mathbf{x}_{N}
 \end{equation}
 
-Now, there's nothing wrong with having an $\mathbf{x}_{N}$ component. We're talking about the input to the system here, and we can choose that to be whatever we damn-well please. However, if $\mathbf{x}_{N}$ is perpendicular to the row space component, then it must also be perpendicular to all the individual rows of \mA. Perpendicular means that the dot product is zero, which leads us to the fact that,
+Now, there's nothing wrong with having an $\mathbf{x}_{N}$ component. We're talking about the input to the system here, and we can choose that to be whatever we damn-well please. However, if $\mathbf{x}_{N}$ is perpendicular to the row space component, then it must also be perpendicular to all the individual rows of A. Perpendicular means that the dot product is zero, which leads us to the fact that,
 %
 \begin{equation}
 \mathbf{A x}_N = \mathbf{0}     .
@@ -113,7 +113,7 @@ The input space is always $n$D, but the row space won't always fill the whole of
 
 \subsection{Transposing}
 
-If we transpose the matrix, then everything flips around. The row space of \mA is the column space of \mAT, and vice-versa. The nullspace of \mA is the left-nullspace of \mAT and vice-versa. This should be pretty obvious, because the transpose operation turns the rows into columns and the columns into rows. It also gives us a nice way to define the left-nullspace, as the nullspace of \mAT. This means that $\mathbf{A}^T \mathbf{y}_{LN} = \mathbf{0}$.
+If we transpose the matrix, then everything flips around. The row space of A is the column space of AT, and vice-versa. The nullspace of A is the left-nullspace of AT and vice-versa. This should be pretty obvious, because the transpose operation turns the rows into columns and the columns into rows. It also gives us a nice way to define the left-nullspace, as the nullspace of AT. This means that $\mathbf{A}^T \mathbf{y}_{LN} = \mathbf{0}$.
 
 
 
@@ -124,9 +124,9 @@ If we transpose the matrix, then everything flips around. The row space of \mA i
 \end{equation}
 
 \begin{itemize}
-\item \vx is in the input space, which is divided into the \emph{row space} and the \emph{nullspace}. The nullspace maps onto $\mathbf{0}$ in the output space. The row space maps onto the column space.
+\item x is in the input space, which is divided into the \emph{row space} and the \emph{nullspace}. The nullspace maps onto $\mathbf{0}$ in the output space. The row space maps onto the column space.
 
-\item \vy is in the output space, which is divided into the \emph{column space} and the \emph{left-nullspace}. If \vy is in the column space then there is a solution for \vx (in the row space). If \vy has a component in the left-nullspace, there is no solution for \vx.
+\item y is in the output space, which is divided into the \emph{column space} and the \emph{left-nullspace}. If y is in the column space then there is a solution for x (in the row space). If y has a component in the left-nullspace, there is no solution for x.
 
 \end{itemize}
 
@@ -139,7 +139,7 @@ We're now going to consider solving equations of the form,
  \mathbf{y} = \mathbf{A x}
 \end{equation}
 
-where \mA and \vy are known and fixed and we want to find \vx. Back in the simple land of scalars, there was always 1 solution to this equation (unless \mA was $0$). Here in multi-dimensional space there could be one, zero, or an infinite number of solution. We've already considered when no solution exists --- its when $\mathbf{y}_{LN} \ne 0$.
+where A and y are known and fixed and we want to find x. Back in the simple land of scalars, there was always 1 solution to this equation (unless A was $0$). Here in multi-dimensional space there could be one, zero, or an infinite number of solution. We've already considered when no solution exists --- its when $\mathbf{y}_{LN} \ne 0$.
 
 It turns out that there will be one solution if $r = n$, and many (infinite) if $r < n$. To see why, lets think about the nullspace. If $r<n$, then the matrix has a nullspace (because it has $n-r > 0$ dimensions), and it's defined by $\mathbf{A x}_N = \mathbf{0}$. If $\mathbf{x}_0$ is a solution to the equation, i.e. $\mathbf{y} = \mathbf{A x}_0$, then we could just add some of $\mathbf{x}_N$ onto the original solution and we'd still have a valid solution.
 %
@@ -156,20 +156,37 @@ We'll get onto how we actually find $\mathbf{x}_0$ and $\mathbf{x}_N$ when we lo
 
 \subsection{Least Squares Solutions}
 
-We said that we can't solve a matrix equation when $\mathbf{y}_{LN} \ne 0$. However, all is not lost. We can still find a best-fit/minimum-error solution. Remember that the left-nullspace is characterised by $\mathbf{A}^T \mathbf{y}_{LN} = \mathbf{0}$. So if we pre-multiply the output (i.e. the constraints) of the equation by \mAT, then we can make that awkward left-nullspace bit disappear.
+We said that we can't solve a matrix equation when $\mathbf{y}_{LN} \ne 0$. However, all is not lost. We can still find a best-fit/minimum-error solution. Remember that the left-nullspace is characterised by $\mathbf{A}^T \mathbf{y}_{LN} = \mathbf{0}$. So if we pre-multiply the output (i.e. the constraints) of the equation by A$^T$, then we can make that awkward left-nullspace bit disappear.
 %
 \begin{eqnarray}
 \mathbf{A}^T (\mathbf{y}_C + \mathbf{y}_{LN}) & = & \mathbf{A}^T \mathbf{y}_C + \mathbf{A}^T \mathbf{y}_{LN} \\
  & = & \mathbf{A}^T \mathbf{y}_C + \mathbf{0}
 \end{eqnarray}
 
-So if we take the original solution-less equation and pre-multiply by \mAT, we get a new equation which does have a solution.
+So if we take the original solution-less equation and pre-multiply by A$^T$, we get a new equation which does have a solution.
 %
 \begin{equation}
  \mathbf{A}^T \mathbf{y} = \mathbf{A}^T \mathbf{A x}
 \end{equation}
 
-This solution results in an output of $\mathbf{y}_C$, which is as close as we can get to \vy.
+This solution results in an output of $\mathbf{y}_C$, which is as close as we can get to y.
+
+An elegant connection can be made here. Consider that we're trying to find the value of x for which Ax is as close to y as possible. Hence, we want to minimise,
+%
+\begin{eqnarray}
+ ||\mathbf{y} - \mathbf{A x}||^2 & = & (\mathbf{y} - \mathbf{A x})^T (\mathbf{y} - \mathbf{A x}) \nonumber \\
+ & = & \mathbf{y}^T \mathbf{y} - 2 \mathbf{y}^T \mathbf{Ax} + \mathbf{x}^T \mathbf{A}^T \mathbf{A x}    .
+\end{eqnarray}
+
+The minimum is found by differentiating this w.r.t. x and setting the result to 0. This give us
+%
+\begin{eqnarray}
+ - 2 \mathbf{y}^T \mathbf{A} + 2 \mathbf{x}^T \mathbf{A}^T \mathbf{A} & = & 0 \nonumber \\
+ \mathbf{x}^T \mathbf{A}^T \mathbf{A} & = & \mathbf{y}^T \mathbf{A} \nonumber \\
+ \mathbf{A}^T \mathbf{A x} & = & \mathbf{A}^T \mathbf{y}
+\end{eqnarray}
+
+So the least squared error solution is the same as the column space-only solution, which is as expected. Good.
 
 
 
@@ -185,13 +202,13 @@ An LU decomposition (specifically, a Doolittle LU decomposition) is a factorisat
 
 \subsection{Row Space Interpretation}
 
-Lets reason our way to the LU decomposition by considering the row space. Our row space vectors of \mA are not very nice --- they're all in arbitrary directions, which makes calculations difficult. We can try to modify them by tying them to the axes a bit. First we make the first row of \mA ``responsible'' for the first dimension (the x-axis). Otherwise, it remains unchanged. We then scale and add this x-row to the other rows to get rid of their x components (i.e. forcing the $0$s in the first column of U). Next we make the (modified) second row responsible for the y-axis. We scale and add this y-row to the others to get get rid of their y components. Continue until we run out of rows or dimensions. The resulting modified rows make up our U matrix. L contains the scale factors required to ``rebuild'' the row of \mA from the rows of U.
+Lets reason our way to the LU decomposition by considering the row space. Our row space vectors of A are not very nice --- they're all in arbitrary directions, which makes calculations difficult. We can try to modify them by tying them to the axes a bit. First we make the first row of A ``responsible'' for the first dimension (the x-axis). Otherwise, it remains unchanged. We then scale and add this x-row to the other rows to get rid of their x components (i.e. forcing the $0$s in the first column of U). Next we make the (modified) second row responsible for the y-axis. We scale and add this y-row to the others to get get rid of their y components. Continue until we run out of rows or dimensions. The resulting modified rows make up our U matrix. L contains the scale factors required to ``rebuild'' the row of A from the rows of U.
 %
 \begin{equation}
  \begin{bmatrix} \mathbf{u}_1 \\ l_{2,1} \mathbf{u}_1 + \mathbf{u}_2 \\ l_{3,1} \mathbf{u}_1 + l_{3,2} \mathbf{u}_2 + \mathbf{u}_3 \end{bmatrix} = \begin{bmatrix} 1 & 0 & 0 \\ l_{2,1} & 1 & 0 \\ l_{3,1} & l_{3,2} & 1 \end{bmatrix} \begin{bmatrix} \mathbf{u}_1 \\ \mathbf{u}_2 \\ \mathbf{u}_3 \end{bmatrix}
 \end{equation}
 
-All we did to the rows of \mA to get the rows of U was scaling and adding, so we have changed the vector space that they span. Hence, the row space of \mA is the row space of U.
+All we did to the rows of A to get the rows of U was scaling and adding, so we have not changed the vector space that they span. Hence, the row space of A is the row space of U.
 
 What happens if the rows of U are not independent? We find that having attended to $r$ of the rows, then when we do the scaling and adding to get rid of the first $r$ components of the $(r+1)$th row, the entire row ends up being filled with zeros. This follows from the fact that the $(r+1)$th row is just a linear combination of the first $r$ rows. Thus, the rank of the matrix is the number of non-zero rows of U. Of course, if $m$ is larger than $n$, then there will always be at least one row of zeros in U.
 
@@ -199,7 +216,7 @@ What happens if the rows of U are not independent? We find that having attended 
  \begin{bmatrix} \mathbf{u}_1 \\ l_{2,1} \mathbf{u}_1 + \mathbf{u}_2 \\ l_{3,1} \mathbf{u}_1 + l_{3,2} \mathbf{u}_2 \end{bmatrix} = \begin{bmatrix} 1 & 0 & 0 \\ l_{2,1} & 1 & 0 \\ l_{3,1} & l_{3,2} & 1 \end{bmatrix} \begin{bmatrix} \mathbf{u}_1 \\ \mathbf{u}_2 \\ \mathbf{0} \end{bmatrix}
 \end{equation}
 
-L is square and has determinant 1, so its always invertible. This makes it really easy to find the nullspace of \mA,
+L is square and has determinant 1, so its always invertible. This makes it really easy to find the nullspace of A,
 
 \begin{eqnarray}
  \mathbf{A x}_N & = & \mathbf{0} \nonumber \\
@@ -211,13 +228,13 @@ L is square and has determinant 1, so its always invertible. This makes it reall
 
 \subsection{Column Space interpretation}
 
-We can now turn the whole thing on its head and consider the column spaces. The columns of \mA are built up from the columns of L, using the factors of U as scale factors.
+We can now turn the whole thing on its head and consider the column spaces. The columns of A are built up from the columns of L, using the factors of U as scale factors.
 
 \begin{multline}
  \begin{bmatrix}u_{1,1} \mathbf{l}_1 & u_{1,2} \mathbf{l}_1 + u_{2,2} \mathbf{l}_2 & u_{1,3} \mathbf{l}_1 + u_{2,3} \mathbf{l}_2 + u_{3,3} \mathbf{l}_3 &  u_{1,4} \mathbf{l}_1 + u_{2,4} \mathbf{l}_2 + u_{3,4} \mathbf{l}_3 \end{bmatrix} \\ = \begin{bmatrix}\mathbf{l}_1 & \mathbf{l}_2 & \mathbf{l}_3 \end{bmatrix} \begin{bmatrix} u_{1,1} & u_{1,2} & u_{1,3} & u_{1,4} \\ 0 & u_{2,2} & u_{2,3} & u_{2,4} \\ 0 & 0 & u_{3,3} & u_{3,4} \end{bmatrix}
 \end{multline}
 
-The columns of \mA are just linear combinations of those of L, so we might expect the column space of \mA to be the same as the column space of L. However, if there is a row in U populated entirely with zeros, then we don't actually use the corresponding column of L when rebuilding \mA. So in fact the column space of \mA is spanned by the columns of L \emph{corresponding to non-zero rows of U} (or in other words, the first $r$ columns of L). This, incidently, is how we prove that the row and column spaces have the same number of dimensions.
+The columns of A are just linear combinations of those of L, so we might expect the column space of A to be the same as the column space of L. However, if there is a row in U populated entirely with zeros, then we don't actually use the corresponding column of L when rebuilding A. So in fact the column space of A is spanned by the columns of L \emph{corresponding to non-zero rows of U} (or in other words, the first $r$ columns of L). This, incidently, is how we prove that the row and column spaces have the same number of dimensions.
 
 The left-nullspace can be found from its definition (perpendicular to the column space) by finding vectors orthogonal to the first $r$ columns of L.
 
@@ -225,7 +242,7 @@ The left-nullspace can be found from its definition (perpendicular to the column
 
 \subsection{Partial Pivoting}
 
-Remember when we ``made the first row responsible for the first dimension''. What if it doesn't have a component in that direction, or it does but its tiny? In these circumstances, we need to swap the rows around. This can be achieved by premultiplying \mA by a permutation matrix, so we now have,
+Remember when we ``made the first row responsible for the first dimension''. What if it doesn't have a component in that direction, or it does but its tiny? In these circumstances, we need to swap the rows around. This can be achieved by premultiplying A by a permutation matrix, so we now have,
 
 \begin{equation}
  \mathbf{P A} = \mathbf{L U}     .
@@ -256,27 +273,32 @@ from the definition. Again, there will probably be multiple solutions, so some v
 
 \section{QR Decompositions}
 
-There are several forms of QR decomposition. Here we look at factorisations of the form,
+QR decompositions can be a bit confusing because there are two forms, referred to here as full and reduced.
+
+\begin{eqnarray}
+ \mathbf{A} & = & \mathbf{Q R} \nonumber \\
+            & = & \begin{bmatrix} \mathbf{Q}_C & \mathbf{Q}_{LN} \end{bmatrix} \begin{bmatrix} \mathbf{R}_R \\ \mathbf{0}_{(m-r \times n)} \end{bmatrix} \\
+            & = & \mathbf{Q}_C \mathbf{R}_R
+\end{eqnarray}
+
+$\mathbf{Q}_C$ is $m \times r$, and $\mathbf{Q}_{LN}$ is $m \times m-r$, making $\mathbf{Q}$ a square, $m \times m$ matrix. $\mathbf{R}_R$ is $r \times n$. For some problems and proofs we will need the full form, but most of the time we can get away with using the reduced variety, which requires less calculation. The reduced form looks like this,
 %
 \begin{equation}
- \underbrace{\begin{bmatrix} . & . & . \\ . & . & . \\ . & . & . \\ . & . & . \end{bmatrix}}_{\mathbf{A} (m \times n)} = \underbrace{\begin{bmatrix} \mathbf{q}_1 & \mathbf{q}_2 & \mathbf{q}_3 \end{bmatrix}}_{\mathbf{Q} (m \times r)} \underbrace{\begin{bmatrix} . & . & . \\ 0 & . & . \\ 0 & 0 & . \end{bmatrix}}_{\mathbf{R} (r \times n)}     ,
+ \underbrace{\begin{bmatrix} . & . & . \\ . & . & . \\ . & . & . \\ . & . & . \end{bmatrix}}_{\mathbf{A} (m \times n)} = \underbrace{\begin{bmatrix} \mathbf{q}_1 & \mathbf{q}_2 & \mathbf{q}_3 \end{bmatrix}}_{\mathbf{Q}_C (m \times r)} \underbrace{\begin{bmatrix} . & . & . \\ 0 & . & . \\ 0 & 0 & . \end{bmatrix}}_{\mathbf{R}_R (r \times n)}     ,
 \end{equation}
 
-where we make the $q_i$s an orthonormal basis (i.e. orthogonal unit vectors). This will be really useful for solving equations.
-
-This form has the fewest possible columns in Q. The other common form makes Q square ($m \times m$) and R $m \times n$.
-
+where we make the $q_i$s an orthonormal basis (i.e. orthogonal unit vectors) for the column space of A. This will be really useful for solving equations.
 
 
 \subsection{Column Space Interpretation}
 
-With the LU decomposition, we manipulated the row space vectors of \mA to make them a bit nicer, i.e. to force all but one vector onto the $x=0$ plane, all but two vectors onto the $y=0$ plane, etc. For a QR decomposition, we are going to manipulate the column space vectors to make them orthonormal. We can do this using a procedure called Gram-Schmidt orthogonalisation (sounds painful). This is not complex, but it is tedious.
+With the LU decomposition, we manipulated the row space vectors of A to make them a bit nicer, i.e. to force all but one vector onto the $x=0$ plane, all but two vectors onto the $y=0$ plane, etc. For a QR decomposition, we are going to manipulate the column space vectors to make them orthonormal. We can do this using a procedure called Gram-Schmidt orthogonalisation (sounds painful). This is not complex, but it is tedious.
 
 \begin{algorithm}[!h]
  \begin{algorithmic}[1]
   \FOR {$i = 1$ \TO $n$}
     \FOR {$j = 1$ \TO $i-1$}
-      \STATE Find $\tilde{r}_{j,i} = \mathbf{a}_i \cdot \mathbf{q}_j$, the projection of the $i$th column of \mA in the direction of the $j$th column of Q.
+      \STATE Find $\tilde{r}_{j,i} = \mathbf{a}_i \cdot \mathbf{q}_j$, the projection of the $i$th column of A in the direction of the $j$th column of Q$_C$.
     \ENDFOR
     \STATE Subtract the projections from $\mathbf{a}_i$, $\tilde{\mathbf{q}}_i = \mathbf{a}_i - \sum_j \tilde{r}_{j,i} \mathbf{q}_j$. What remains is perpendicular to all previous columns.
     \STATE Find the magnitude, $s_i = |\tilde{\mathbf{q}}_i|$.
@@ -285,31 +307,31 @@ With the LU decomposition, we manipulated the row space vectors of \mA to make t
  \end{algorithmic}
 \end{algorithm}
 
-The values in the R matrix are just those required to ``rebuild'' the columns of \mA from the columns of Q. Hence,
+The values in the R$_R$ matrix are just those required to ``rebuild'' the columns of A from the columns of Q$_C$. Hence,
 %
 \begin{equation}
  \begin{bmatrix} \mathbf{a}_1 & \mathbf{a}_2 & \mathbf{a}_3 \end{bmatrix} = \begin{bmatrix} \mathbf{q}_1 & \mathbf{q}_2 & \mathbf{q}_3 \end{bmatrix} \begin{bmatrix} s_1 & \tilde{r}_{1,2} s_2 & \tilde{r}_{1,3} s_3 \\ 0 & s_2 & \tilde{r}_{2,3} s_3 & \\ 0 & 0 & s_3 \end{bmatrix}     ,
 \end{equation}
 
-If the columns of \mA are not all independent, then we will find that we get $\tilde{\mathbf{q}}_{r+1} = \mathbf{0}$ in our orthogonalisation procedure. In this case, we can just throw away that column and the corresponding row in R. This does not affect the column space spanned because the discarded column was a linear combination of the others. The Q matrix becomes $m \times r$ and the R matrix $r \times n$.
+If the columns of A are not all independent, then we will find that we get $\tilde{\mathbf{q}}_{r+1} = \mathbf{0}$ in our orthogonalisation procedure. In this case, we can just throw away that column and the corresponding row in R$_R$ --- we do not need it for the orthonormal basis. This does not affect the column space spanned because the discarded column was a linear combination of the others. The Q$_C$ matrix becomes $m \times r$ and the R$_R$ matrix $r \times n$.
 
-Because the orthogonalisation is just a set of linear operations on the columns of \mA, the column space of \mA is the same as that of Q. By switching to a row space interpretation (like that of the LU decomposition), we can reason that the row space and nullspace of A are the same as those of R.
+Because the orthogonalisation is just a set of linear operations on the columns of A, the column space of A is the same as that of Q$_C$. By switching to a row space interpretation (like that of the LU decomposition), we can reason that the row space and nullspace of A are the same as those of R$_R$.
 
-The columns of matrix Q are orthogonal and unit length. This means that,
+The columns of matrix Q$_C$ are orthogonal and unit length. This means that,
 
 \begin{eqnarray}
- \mathbf{Q}^T \mathbf{Q} & = & \begin{bmatrix} \mathbf{q}_1^T \\ \mathbf{q}_2^T \\ \mathbf{q}_3^T \end{bmatrix} \begin{bmatrix} \mathbf{q}_1 & \mathbf{q}_2 & \mathbf{q}_3 \end{bmatrix} \nonumber \\
+ \mathbf{Q}_C^T \mathbf{Q}_C & = & \begin{bmatrix} \mathbf{q}_1^T \\ \mathbf{q}_2^T \\ \mathbf{q}_3^T \end{bmatrix} \begin{bmatrix} \mathbf{q}_1 & \mathbf{q}_2 & \mathbf{q}_3 \end{bmatrix} \nonumber \\
  & = & \begin{bmatrix} \mathbf{q}_1 \cdot \mathbf{q}_1 & \mathbf{q}_1 \cdot \mathbf{q}_2 & \mathbf{q}_1 \cdot \mathbf{q}_3 \\ \mathbf{q}_2 \cdot \mathbf{q}_1 & \mathbf{q}_2 \cdot \mathbf{q}_2 & \mathbf{q}_2 \cdot \mathbf{q}_3 \\ \mathbf{q}_3 \cdot \mathbf{q}_1 & \mathbf{q}_3 \cdot \mathbf{q}_2 & \mathbf{q}_3 \cdot \mathbf{q}_3 \end{bmatrix} \nonumber \\
  & = & \mathbf{I}    .
 \end{eqnarray}
 
-However, the reverse is only true if the matrix is square! (i.e. in general $\mathbf{Q Q}^T \ne \mathbf{I}$)
+However, the reverse is only true if the matrix is square! (i.e. in general $\mathbf{Q}_C \mathbf{Q}_C^T \ne \mathbf{I}$, but see next section)
 
 
 
-\subsection{Alternative Form}
+\subsection{Full Form}
 
-Another useful form of QR decomposition enforces a square Q matrix. Having constructed $r$ orthogonal vectors from the columns of \mA, we then find $m-r$ more. The same number of rows are added to R, all zeros. Q is now a proper orthogonal matrix ($\mathbf{Q}^T = \mathbf{Q}^{-1}$), which is useful, but this requires a whole lot more calculation of orthogonal vectors, so don't do it by hand. MATLAB uses this form.
+To compute the full form of the QR decomposition, we find an additional $m-r$ vectors which form an orthonormal basis for the left-nullspace. We concatenate these to Q$_C$ in order to make Q a square, full rank, orthogonal matrix. Note that this means the column space of Q is no longer the same as the column space of A. We add zeros in the rows of R corresponding to these new columns. Q is now a proper orthogonal matrix ($\mathbf{Q}^T = \mathbf{Q}^{-1}$), which is useful, but this requires a whole lot more calculation of orthogonal vectors, so don't do it by hand. MATLAB uses this form.
 
 
 
@@ -318,21 +340,21 @@ Another useful form of QR decomposition enforces a square Q matrix. Having const
 The orthogonal property of the Q matrix is super-useful for solving equations. If an exact solution exists, then we can find it using,
 %
 \begin{eqnarray}
- \mathbf{y} &=& \mathbf{Q z} \\
- \mathbf{z} &=& \mathbf{R x}
+ \mathbf{y} &=& \mathbf{Q} \mathbf{z} \\
+ \mathbf{z} &=& \mathbf{R} \mathbf{x}
 \end{eqnarray}
 
-This is easy if we use the square form for Q, because we can invert it simply by taking a transpose. The second equation is simple because R is triangular.
+This is easy if we use the full form decomposition, because we can invert Q simply by taking a transpose. The second equation is simple because R is triangular. With reduced form equations, it is non-trivial.
 
-Least squares problems are even easier using QR decompositions. Using the $m \times r$ form for Q, the column space (and thus the left-nullspace) of Q is the same as that for \mA. This means we can use the left-nullspace trick with Q instead of A, i.e. $\mathbf{Q}^T(\mathbf{y}_C + \mathbf{y}_{LN}) = \mathbf{Q}^T \mathbf{y}_C$. Hence we can find a least squares solution by solving,
+Least squares problems are even easier using QR decompositions. Using reduced form, the column space (and thus the left-nullspace) of Q$_C$ is the same as that for A. This means we can use the left-nullspace trick with Q$_C$ instead of A, i.e. $\mathbf{Q}_C^T(\mathbf{y}_C + \mathbf{y}_{LN}) = \mathbf{Q}_C^T \mathbf{y}_C$. Hence we can find a least squares solution by solving,
 %
 \begin{eqnarray}
  \mathbf{y} &=& \mathbf{A x} \nonumber \\
- \mathbf{Q}^T \mathbf{y} &=& \mathbf{Q}^T \mathbf{Q R x} \nonumber \\
- \mathbf{Q}^T \mathbf{y} &=& \mathbf{R x}     .
+ \mathbf{Q}_C^T \mathbf{y} &=& \mathbf{Q}_C^T \mathbf{Q}_C \mathbf{R}_R \mathbf{x} \nonumber \\
+ \mathbf{Q}_C^T \mathbf{y} &=& \mathbf{R}_R \mathbf{x}     .
 \end{eqnarray}
 
-Again, this will be easy because R is triangular.
+Again, this will be easy because R$_R$ is triangular.
 
 
 
@@ -346,7 +368,7 @@ Eigenvalues and vectors are properties of square matrices only, specified jointl
  \mathbf{A u} = \lambda \mathbf{u}    .
 \end{equation}
 
-If \mA is a $n \times n$ square matrix then this has $n$ solutions (not necessarily unique).
+If A is a $n \times n$ square matrix then this has $n$ solutions (not necessarily unique).
 
 We need to consider how eigenvectors fit into the vector subspace picture of a matrix. Because the matrix is square, the input and output spaces are the same.
 
@@ -377,7 +399,7 @@ Singular values and vectors are jointly defined by the equations,
  \mathbf{A^T u} &=& \sigma \mathbf{v}      .
 \end{eqnarray}
 
-These work with matrixes of any size.% For non-zero singular values, the $\mathbf{v}$s span the row space and the $\mathbf{u}$s the column space.
+These work with matrices of any size.% For non-zero singular values, the $\mathbf{v}$s span the row space and the $\mathbf{u}$s the column space.
 
 To find the singular values and vectors, substitute each equation into the other,
 %
@@ -386,7 +408,14 @@ To find the singular values and vectors, substitute each equation into the other
  \mathbf{A}^T \mathbf{A v} &=& \sigma^2 \mathbf{v}      .
 \end{eqnarray}
 
-Hence, $\mathbf{u}$ and $\sigma^2$ are the eigenvectors and eigenvalues of $\mathbf{A A}^T$, and $\mathbf{v}$ and $\sigma^2$ are the eigenvectors and eigenvalues of $\mathbf{A}^T \mathbf{A}$. Because $\mathbf{A A}^T$ and $\mathbf{A}^T \mathbf{A}$ are clearly symmetric, the singular vectors are all orthogonal.
+Hence, $\mathbf{u}$ and $\sigma^2$ are the eigenvectors and eigenvalues of $\mathbf{A A}^T$ (so there will be $m$ of them), and $\mathbf{v}$ and $\sigma^2$ are the eigenvectors and eigenvalues of $\mathbf{A}^T \mathbf{A}$ ($n$ of them). Because $\mathbf{A A}^T$ and $\mathbf{A}^T \mathbf{A}$ are clearly symmetric, the singular vectors are all orthogonal. Furthermore, both product matrices ony have $r$ non-zero eigenvalues, so A has only $r$ singular values.
+
+If one of the singular values is zero then the corresponding vectors lie in the nullspace and left-nullspace,
+%
+\begin{eqnarray}
+ \mathbf{A v} &=& \mathbf{0} \\
+ \mathbf{A^T u} &=&  \mathbf{0}      .
+\end{eqnarray}
 
 
 \section{Eigenvalue and Singular Value Decompositions}
@@ -403,29 +432,23 @@ Now rearranging,
  \mathbf{A} = \mathbf{U \Lambda U}^{-1}
 \end{equation}
 
-In the convenient case that \mA is symmetric, then $\mathbf{U}$ is orthogonal, so $\mathbf{U}^{-1} = \mathbf{U}^{T}$.
+In the convenient case that A is symmetric, then $\mathbf{U}$ is orthogonal, so $\mathbf{U}^{-1} = \mathbf{U}^{T}$.
 
-We can do the same grouping thing with singular values. 
+We can do the same grouping thing with singular values. In this example, $m = 3$, $n = 4$, $r = 2$.
 %
 \begin{eqnarray}
- \mathbf{A V} &=& \mathbf{U \Sigma} \\
- \mathbf{A}^T \mathbf{U} &=& \mathbf{V \Sigma}      .
+ \mathbf{A} \underbrace{\begin{bmatrix}\mathbf{v}_1 & \mathbf{v}_2 & \mathbf{v}_3 & \mathbf{v}_4 \end{bmatrix}}_{\mathbf{V}} &=& \underbrace{\begin{bmatrix}\mathbf{u}_1 & \mathbf{u}_2 & \mathbf{u}_3 \end{bmatrix}}_{\mathbf{U}} \underbrace{\begin{bmatrix}\sigma_1 & 0 & 0 & 0 \\ 0 & \sigma_2 & 0 & 0 \\ 0 & 0 & 0 & 0 \end{bmatrix}}_{\mathbf{\Sigma}} \\
+ \mathbf{A}^T \underbrace{\begin{bmatrix}\mathbf{u}_1 & \mathbf{u}_2 & \mathbf{u}_3 \end{bmatrix}}_{\mathbf{U}} &=& \underbrace{\begin{bmatrix}\mathbf{v}_1 & \mathbf{v}_2 & \mathbf{v}_3 & \mathbf{v}_4 \end{bmatrix}}_{\mathbf{V}} \underbrace{\begin{bmatrix}\sigma_1 & 0 & 0 \\ 0 & \sigma_2 & 0 \\ 0 & 0 & 0 \\ 0 & 0 & 0 \end{bmatrix}}_{\mathbf{\Sigma}^T} \\    .
 \end{eqnarray}
 
-$\mathbf{U}$ and $\mathbf{V}$ are square, and $\mathbf{\Sigma}$ is $m \times n$. Now rearranging,
+$\mathbf{U}$ and $\mathbf{V}$ are square and orthogonal (see previous section), and $\mathbf{\Sigma}$ is $m \times n$. Now rearranging,
 %
 \begin{eqnarray}
- \mathbf{A} &=& \mathbf{U \Sigma V}^{-1} \\
- \mathbf{A} &=& \mathbf{V \Sigma U}^{-1}     .
+ \mathbf{A} &=& \mathbf{U \Sigma V}^{T}      .
 \end{eqnarray}
 
-Comparing these equations we conclude that $U$ and $V$ must be orthogonal so,
+We can interpret both the eigenvalue and singular value decompositions geometrically. The input vector is first rotated in the input space, then scaled along the axes. If $\mathbf{\Sigma}$ is not square, then it dimensions are also added or removed. The resulting vector is then rotated in the output space to give the output point.
 
-\begin{equation}
- \mathbf{A} = \mathbf{U \Sigma V}^{T}
-\end{equation}
-
-We can interpret both the eigenvalue and singular value decompositions geometrically.
 
 
 \end{document}
